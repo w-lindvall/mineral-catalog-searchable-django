@@ -15,3 +15,9 @@ def mineral_detail(request, pk):
     """View displays individual mineral details"""
     mineral = get_object_or_404(Mineral, pk=pk)
     return render(request, 'mineral_detail.html', {'mineral': mineral})
+
+
+def mineral_name_search(request):
+    term = request.GET.get('q')
+    minerals = Mineral.objects.filter(name__icontains=term)
+    return render(request, 'index.html', {'minerals': minerals})
