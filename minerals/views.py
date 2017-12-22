@@ -18,6 +18,8 @@ def mineral_detail(request, pk):
 
 
 def mineral_name_search(request):
+    """View displays list of minerals that matches search query by name"""
     term = request.GET.get('q')
-    minerals = Mineral.objects.filter(name__icontains=term).values('name', 'pk')
+    minerals = Mineral.objects.filter(name__icontains=term).values('name',
+                                                                   'pk')
     return render(request, 'index.html', {'minerals': minerals})

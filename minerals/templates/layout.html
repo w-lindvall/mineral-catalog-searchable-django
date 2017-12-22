@@ -35,6 +35,15 @@
           <input type="search" name="q">
           <button type="button">Search</button>
         </form>
+        <ul class="minerals__container">
+        {% for letter in 'abcdefghijklmnopqrstuvwxyz' %}
+            <li class="minerals__item">
+        <form action="{% url 'mineral_name_search' %}" method="GET">
+          <button type="submit" name="q" value="{{ letter }}" class="minerals__anchor">{{ letter }}</button>
+        </form>
+            </li>
+        {% endfor %}
+        </ul>
     </div>
       {% block content %}
       {% endblock %}
