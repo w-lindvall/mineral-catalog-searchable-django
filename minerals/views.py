@@ -7,7 +7,7 @@ def home_page(request):
     """View displays list of mineral names
     with links to individual detail view
     """
-    minerals = Mineral.objects.all()
+    minerals = Mineral.objects.all().values('name', 'pk')
     return render(request, 'index.html', {'minerals': minerals})
 
 
@@ -19,5 +19,5 @@ def mineral_detail(request, pk):
 
 def mineral_name_search(request):
     term = request.GET.get('q')
-    minerals = Mineral.objects.filter(name__icontains=term)
+    minerals = Mineral.objects.filter(name__icontains=term).values('name', 'pk')
     return render(request, 'index.html', {'minerals': minerals})
