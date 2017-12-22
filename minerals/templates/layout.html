@@ -14,9 +14,6 @@
 </head>
 <body>
 <div>
-<form action="{% url 'mineral_group_search' %}" method="GET">
-  <button type="submit" name="q" value="Silicates">Silicates</button>
-</form>
 {% block bounds_size %}
 {% endblock %}
     <div class="grid-100">
@@ -43,14 +40,13 @@
         <ul class="minerals__container">
         {% for letter in 'abcdefghijklmnopqrstuvwxyz' %}
             <li class="minerals__item">
-        <form action="{% url 'mineral_name_search' %}" method="GET">
+        <form action="{% url 'mineral_first_search' %}" method="GET">
           <button type="submit" name="q" value="{{ letter }}" class="minerals__anchor">{{ letter }}</button>
         </form>
             </li>
         {% endfor %}
         </ul>
 
-    </div>
       {% block content %}
       {% endblock %}
 </div>

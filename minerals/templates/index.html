@@ -5,22 +5,32 @@
 {% endblock %}
 
 {% block content %}
-    <div class="grid-100">
-        <ul class="minerals__container">
-            {% if minerals %}
-              {% for mineral in minerals %}
-              <li class="minerals__item">
-                <a class="minerals__anchor"
-                   href="{% url 'mineral_detail' pk=mineral.pk %}">
-                    {{ mineral.name|title }}
-                </a>
-              </li>
-              {% endfor %}
-            {% else %}
-              <li class="minerals__item">
-                <strong>No items found.</strong>
-              </li>
-            {% endif %}
-        </ul>
-    </div>
+  <ul class="minerals__container">
+    {% for group in groups %}
+      <li class="minerals__item">
+        <form action="{% url 'mineral_group_search' %}" method="GET">
+          <button type="submit" name="q" value="{{ group }}" class="minerals__anchor">{{ group }}</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <div class="grid-100">
+    <ul class="minerals__container">
+      {% if minerals %}
+        {% for mineral in minerals %}
+          <li class="minerals__item">
+            <a class="minerals__anchor"
+               href="{% url 'mineral_detail' pk=mineral.pk %}">
+              {{ mineral.name|title }}
+            </a>
+          </li>
+        {% endfor %}
+      {% else %}
+        <li class="minerals__item">
+          <strong>No items found.</strong>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
 {% endblock %}
