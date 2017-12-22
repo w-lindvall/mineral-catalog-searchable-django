@@ -12,7 +12,11 @@
           rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/static/css/global.css">
 </head>
+<body>
 <div>
+<form action="{% url 'mineral_group_search' %}" method="GET">
+  <button type="submit" name="q" value="Silicates">Silicates</button>
+</form>
 {% block bounds_size %}
 {% endblock %}
     <div class="grid-100">
@@ -32,9 +36,10 @@
         </a>
         <p class="logo__text text-centered">They're not rocks!</p>
         <form action="{% url 'mineral_name_search' %}" method="GET">
-          <input type="search" name="q">
-          <button type="button">Search</button>
+          <input type="search" name="q" title="search">
+          <button type="submit">Search</button>
         </form>
+
         <ul class="minerals__container">
         {% for letter in 'abcdefghijklmnopqrstuvwxyz' %}
             <li class="minerals__item">
@@ -44,6 +49,7 @@
             </li>
         {% endfor %}
         </ul>
+
     </div>
       {% block content %}
       {% endblock %}

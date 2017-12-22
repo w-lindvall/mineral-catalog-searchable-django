@@ -23,3 +23,10 @@ def mineral_name_search(request):
     minerals = Mineral.objects.filter(name__icontains=term).values('name',
                                                                    'pk')
     return render(request, 'index.html', {'minerals': minerals})
+
+
+def mineral_group_search(request):
+    """View displays list of minerals that matches search query by group"""
+    term = request.GET.get('q')
+    minerals = Mineral.objects.filter(group__contains=term).values('name', 'pk')
+    return render(request, 'index.html', {'minerals': minerals})
