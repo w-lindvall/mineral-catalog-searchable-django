@@ -1,0 +1,9 @@
+<ul class="minerals__container">
+{% for group in groups %}
+  <li class="minerals__item">
+    <form action="{% url 'mineral_group_search' %}" method="GET">
+      <button type="submit" name="q" value="{{ group }}" class="minerals__anchor">{{ group }}</button>
+    </form>
+  </li>
+{% endfor %}
+</ul>

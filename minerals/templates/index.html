@@ -1,20 +1,12 @@
 {% extends "layout.html" %}
+{% load course_extras %}
 
 {% block bounds_size %}
   <div class="bounds">
 {% endblock %}
 
 {% block content %}
-  <ul class="minerals__container">
-    {% for group in groups %}
-      <li class="minerals__item">
-        <form action="{% url 'mineral_group_search' %}" method="GET">
-          <button type="submit" name="q" value="{{ group }}" class="minerals__anchor">{{ group }}</button>
-        </form>
-      </li>
-    {% endfor %}
-  </ul>
-
+{% group_nav %}
   <div class="grid-100">
     <ul class="minerals__container">
       {% if minerals %}
@@ -33,4 +25,5 @@
       {% endif %}
     </ul>
   </div>
+
 {% endblock %}

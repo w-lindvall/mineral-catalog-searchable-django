@@ -35,10 +35,7 @@ def mineral_group_search(request):
     """View displays list of minerals that matches search query by group"""
     term = request.GET.get('q')
     minerals = Mineral.objects.filter(group__contains=term).values('name', 'pk')
-    groups = ['Silicates', 'Oxides', 'Sulfates', 'Sulfides', 'Carbonates',
-              'Halides', 'Sulfosalts', 'Phosphates', 'Borates', 'Organic Minerals',
-              'Arsenates', 'Native Elements', 'Other']
-    return render(request, 'index.html', {'minerals': minerals, 'groups': groups})
+    return render(request, 'index.html', {'minerals': minerals})
 
 
 def mineral_first_search(request):
