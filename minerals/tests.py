@@ -33,7 +33,7 @@ class MineralViewTest(TestCase):
 
     def test_home_page_view(self):
         """Test home page view"""
-        response = self.client.get(reverse('home'))
+        response = self.client.get(reverse('home_page'))
         self.assertEqual(response.status_code, 200)
         self.assertIn(self.mineral, response.context['minerals'])
         self.assertIn(self.mineral2, response.context['minerals'])
@@ -43,9 +43,9 @@ class MineralViewTest(TestCase):
 
     def test_detail_view(self):
         """Test detail view"""
-        response = self.client.get(reverse('detail',
+        response = self.client.get(reverse('mineral_detail',
                                            kwargs={'pk': self.mineral.pk}))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'detail.html')
+        self.assertTemplateUsed(response, 'mineral_detail.html')
         self.assertContains(response, self.mineral.name)
         self.assertContains(response, self.mineral.color)
