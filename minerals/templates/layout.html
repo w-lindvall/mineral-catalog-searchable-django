@@ -1,3 +1,5 @@
+{% load course_extras %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,15 +33,7 @@
         <button type="submit">Search</button>
       </form>
 
-      <ul class="minerals__container">
-        {% for letter in 'abcdefghijklmnopqrstuvwxyz' %}
-          <li class="minerals__item">
-            <form action="{% url 'mineral_first_search' %}" method="GET">
-              <button type="submit" name="q" value="{{ letter }}" class="minerals__anchor">{{ letter }}</button>
-            </form>
-          </li>
-        {% endfor %}
-      </ul>
+      {% first_letter_nav %}
 
     {% block content %}
     {% endblock %}

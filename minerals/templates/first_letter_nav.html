@@ -1,0 +1,9 @@
+<ul class="minerals__container">
+{% for letter in alphabet %}
+  <li class="minerals__item">
+    <form action="{% url 'mineral_first_search' %}" method="GET">
+      <button type="submit" name="q" value="{{ letter }}" class="minerals__anchor">{{ letter }}</button>
+    </form>
+  </li>
+{% endfor %}
+</ul>

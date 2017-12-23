@@ -24,22 +24,22 @@ class MineralViewTest(TestCase):
             name='Mineral 1',
             category='Category 1',
             color='Color 1',
+            group='Other',
         )
         self.mineral2 = Mineral.objects.create(
             name='Mineral 2',
             color='Color 2',
             streak='Streak 2',
+            group='Rock'
         )
 
     def test_home_page_view(self):
         """Test home page view"""
         response = self.client.get(reverse('home_page'))
         self.assertEqual(response.status_code, 200)
-        self.assertIn(self.mineral, response.context['minerals'])
-        self.assertIn(self.mineral2, response.context['minerals'])
         self.assertTemplateUsed(response, 'index.html')
-        self.assertIn(self.mineral, response.context['minerals'])
-        self.assertIn(self.mineral2, response.context['minerals'])
+        self.assertContains(response, self.mineral.name)
+        self.assertContains(response, self.mineral2.name)
 
     def test_detail_view(self):
         """Test detail view"""
@@ -49,3 +49,10 @@ class MineralViewTest(TestCase):
         self.assertTemplateUsed(response, 'mineral_detail.html')
         self.assertContains(response, self.mineral.name)
         self.assertContains(response, self.mineral.color)
+
+    def test_mineral_group_search_view(self):
+        """Test mineral name search view"""
+        response = self.client.get(reverse('mineral_group_search',
+                                           kwargs={'q': self.mineral.group}))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'index.html')
