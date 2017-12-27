@@ -8,20 +8,20 @@ class MineralModelTest(TestCase):
     def test_mineral_model(self):
         """Test creation of mineral object"""
         mineral = Mineral.objects.create(
-            name='Test Mineral',
+            name='A Test Mineral',
             category='Category',
             color='Color',
             crystal_system='Crystal System',
             luster='Luster',
             refractive_index='Refractive Index'
         )
-        self.assertEqual(mineral.name, 'Test Mineral')
+        self.assertEqual(mineral.name, 'A Test Mineral')
 
 
 class MineralViewTest(TestCase):
     def setUp(self):
         self.mineral = Mineral.objects.create(
-            name='Mineral 1',
+            name='Amineral 1',
             category='Category 1',
             color='Color 1',
             group='Other',
@@ -39,7 +39,8 @@ class MineralViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
         self.assertContains(response, self.mineral.name)
-        self.assertContains(response, self.mineral2.name)
+        # home page filters by first letter 'a'
+        self.assertNotContains(response, self.mineral2.name)
 
     def test_detail_view(self):
         """Test detail view"""
@@ -50,9 +51,23 @@ class MineralViewTest(TestCase):
         self.assertContains(response, self.mineral.name)
         self.assertContains(response, self.mineral.color)
 
-    def test_mineral_group_search_view(self):
+    def test_mineral_name_search_view(self):
         """Test mineral name search view"""
-        response = self.client.get(reverse('mineral_group_search',
-                                           kwargs={'q': self.mineral.group}))
+        response = self.client.get(reverse('mineral_name_search'), {'q': 'Amineral'})
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.mineral.name)
+        self.assertTemplateUsed(response, 'index.html')
+
+    def test_mineral_group_search_view(self):
+        """Test mineral group search view"""
+        response = self.client.get(reverse('mineral_group_search', kwargs={'group': 'other'}))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.mineral.name)
+        self.assertTemplateUsed(response, 'index.html')
+
+    def test_mineral_first_search_view(self):
+        """Test mineral first letter search view"""
+        response = self.client.get(reverse('mineral_first_search', kwargs={'letter': 'a'}))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.mineral.name)
         self.assertTemplateUsed(response, 'index.html')

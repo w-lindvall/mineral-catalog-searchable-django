@@ -40,7 +40,7 @@ def mineral_group_search(request, group):
     return render(request, 'index.html', {'minerals': minerals, 'active_group': group, 'groups': groups})
 
 
-def mineral_first_search(request, letter):
+def mineral_first_search(request, letter='a'):
     """View displays list of minerals that matches
     search query by first letter of name
     """
