@@ -1,3 +1,4 @@
+{% load static from staticfiles %}
 {% load course_extras %}
 
 <!DOCTYPE html>
@@ -12,7 +13,7 @@
           rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Cousine'
           rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/static/css/global.css">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
 </head>
 <body>
 <div>
@@ -49,6 +50,9 @@
     {% block content %}
     {% endblock %}
   </div>
+</div>
+<div class="minerals__random">
+  <a class="minerals__anchor" href="{% url 'mineral_detail' pk=random.pk %}">Show random mineral</a>
 </div>
 </body>
 </html>
