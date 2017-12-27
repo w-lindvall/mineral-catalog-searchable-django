@@ -7,8 +7,17 @@
 
 {% block content %}
 
-<div class="grid-100">
-  {% group_nav %}
+<div class="grid-80">
+Groups:
+    {% for group in groups %}
+    <a href="{% url 'mineral_group_search' group=group %}">
+      {% if group == active_group %}
+        <b>{{ group }}</b>
+      {% else %}
+        {{ group }}
+      {% endif %}
+    </a>
+  {% endfor %}
 </div>
 
   <div class="grid-100">

@@ -33,13 +33,16 @@
         <button type="submit">Search</button>
       </form>
 
-      <div class="minerals__container">
-        {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
-          <li class="minerals__item">
-            <form action="{% url 'mineral_first_search' %}" method="GET">
-              <button type="submit" name="q" value="{{ letter }}" class="minerals__anchor">{{ letter }}</button>
-            </form>
-          </li>
+      <div class="grid-80">
+      First letter:
+        {% for letter in 'abcdefghijklmnopqrstuvwxyz' %}
+          <a href="{% url 'mineral_first_search' letter=letter %}">
+          {% if letter == active_letter %}
+            <b>{{ letter }}</b>
+          {% else %}
+            {{ letter }}
+          {% endif %}
+          </a>
         {% endfor %}
       </div>
 

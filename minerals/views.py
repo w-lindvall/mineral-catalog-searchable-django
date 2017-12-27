@@ -7,8 +7,11 @@ def home_page(request):
     """View displays list of mineral names
     with links to individual detail view
     """
+    groups = ['Silicates', 'Oxides', 'Sulfates', 'Sulfides', 'Carbonates',
+              'Halides', 'Sulfosalts', 'Phosphates', 'Borates', 'Organic Minerals',
+              'Arsenates', 'Native Elements', 'Other']
     minerals = Mineral.objects.all().values('name', 'pk')
-    return render(request, 'index.html', {'minerals': minerals})
+    return render(request, 'index.html', {'minerals': minerals, 'groups': groups})
 
 
 def mineral_detail(request, pk):
@@ -20,22 +23,29 @@ def mineral_detail(request, pk):
 def mineral_name_search(request):
     """View displays list of minerals that matches search query by name"""
     term = request.GET.get('q')
+    groups = ['Silicates', 'Oxides', 'Sulfates', 'Sulfides', 'Carbonates',
+              'Halides', 'Sulfosalts', 'Phosphates', 'Borates', 'Organic Minerals',
+              'Arsenates', 'Native Elements', 'Other']
     minerals = Mineral.objects.filter(name__icontains=term).values('name',
                                                                    'pk')
-    return render(request, 'index.html', {'minerals': minerals})
+    return render(request, 'index.html', {'minerals': minerals, 'groups': groups})
 
 
-def mineral_group_search(request):
+def mineral_group_search(request, group):
     """View displays list of minerals that matches search query by group"""
-    term = request.GET.get('q')
-    minerals = Mineral.objects.filter(group__contains=term).values('name', 'pk')
-    return render(request, 'index.html', {'minerals': minerals})
+    groups = ['Silicates', 'Oxides', 'Sulfates', 'Sulfides', 'Carbonates',
+              'Halides', 'Sulfosalts', 'Phosphates', 'Borates', 'Organic Minerals',
+              'Arsenates', 'Native Elements', 'Other']
+    minerals = Mineral.objects.filter(group__contains=group).values('name', 'pk')
+    return render(request, 'index.html', {'minerals': minerals, 'active_group': group, 'groups': groups})
 
 
-def mineral_first_search(request):
+def mineral_first_search(request, letter):
     """View displays list of minerals that matches
     search query by first letter of name
     """
-    term = request.GET.get('q')
-    minerals = Mineral.objects.filter(name__istartswith=term).values('name', 'pk')
-    return render(request, 'index.html', {'minerals': minerals})
+    groups = ['Silicates', 'Oxides', 'Sulfates', 'Sulfides', 'Carbonates',
+              'Halides', 'Sulfosalts', 'Phosphates', 'Borates', 'Organic Minerals',
+              'Arsenates', 'Native Elements', 'Other']
+    minerals = Mineral.objects.filter(name__istartswith=letter).values('name', 'pk')
+    return render(request, 'index.html', {'minerals': minerals, 'active_letter': letter, 'groups': groups})
