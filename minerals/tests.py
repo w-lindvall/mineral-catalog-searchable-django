@@ -53,21 +53,24 @@ class MineralViewTest(TestCase):
 
     def test_mineral_name_search_view(self):
         """Test mineral name search view"""
-        response = self.client.get(reverse('mineral_name_search'), {'q': 'Amineral'})
+        response = self.client.get(reverse('mineral_name_search'),
+                                   {'q': 'Amineral'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.mineral.name)
         self.assertTemplateUsed(response, 'index.html')
 
     def test_mineral_group_search_view(self):
         """Test mineral group search view"""
-        response = self.client.get(reverse('mineral_group_search', kwargs={'group': 'other'}))
+        response = self.client.get(reverse('mineral_group_search',
+                                           kwargs={'group': 'other'}))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.mineral.name)
         self.assertTemplateUsed(response, 'index.html')
 
     def test_mineral_first_search_view(self):
         """Test mineral first letter search view"""
-        response = self.client.get(reverse('mineral_first_search', kwargs={'letter': 'a'}))
+        response = self.client.get(reverse('mineral_first_search',
+                                           kwargs={'letter': 'a'}))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.mineral.name)
         self.assertTemplateUsed(response, 'index.html')
