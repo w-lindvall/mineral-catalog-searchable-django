@@ -33,7 +33,15 @@
         <button type="submit">Search</button>
       </form>
 
-      {% first_letter_nav %}
+      <div class="minerals__container">
+        {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
+          <li class="minerals__item">
+            <form action="{% url 'mineral_first_search' %}" method="GET">
+              <button type="submit" name="q" value="{{ letter }}" class="minerals__anchor">{{ letter }}</button>
+            </form>
+          </li>
+        {% endfor %}
+      </div>
 
     {% block content %}
     {% endblock %}
